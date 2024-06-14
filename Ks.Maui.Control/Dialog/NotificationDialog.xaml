@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup
+    x:Class="Ks.MauiI.Control.NotificationDialog"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ctrl="clr-namespace:Ks.Maui.UI.Views"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    CanBeDismissedByTappingOutsideOfPopup="False"
+    x:Name="this"
+    Color="White">
+    <toolkit:Popup.Resources>
+        <ResourceDictionary>
+            <Style x:Key="HorizontalSeparater" TargetType="BoxView">
+                <Setter Property="HeightRequest" Value="1" />
+                <Setter Property="Color" Value="#7FDCF4" />
+            </Style>
+        </ResourceDictionary>
+    </toolkit:Popup.Resources>
+    <Grid
+        BackgroundColor="#E5E5E5"
+        ColumnDefinitions="350"
+        RowDefinitions="Auto,Auto,1,Auto">
+        <Grid BackgroundColor="Red">
+            <Label
+                Margin="0"
+                Padding="5"
+                FontAttributes="Bold"
+                FontSize="20"
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center"
+                LineBreakMode="CharacterWrap"
+                Text="重大なお知らせ"
+                TextColor="White" />
+        </Grid>
+        <Grid
+            Grid.Row="1"
+            Margin="20"
+            ColumnDefinitions="Auto,*"
+            ColumnSpacing="10"
+            RowDefinitions="Auto,Auto"
+            RowSpacing="20">
+            <ctrl:NewsCollectionView
+                Grid.Row="0"
+                Grid.ColumnSpan="2"
+                Items="{Binding Items, Source={x:Reference this}}"
+                MaximumHeightRequest="200" />
+            <CheckBox
+                x:Name="NotAlertAgainCheckBox"
+                Grid.Row="1"
+                MaximumHeightRequest="20"
+                MaximumWidthRequest="20"
+                Scale="1.4" />
+            <Label
+                Grid.Row="1"
+                Grid.Column="1"
+                FontSize="14"
+                Text="このお知らせを今後表示しない" />
+        </Grid>
+        <BoxView
+            Grid.Row="2"
+            Style="{StaticResource HorizontalSeparater}"
+            Color="#BBBBBB" />
+        <Button
+            Grid.Row="3"
+            Clicked="BtnOK_Clicked"
+            CornerRadius="0"
+            HorizontalOptions="CenterAndExpand"
+            Text="閉じる"
+            VerticalOptions="Center" />
+    </Grid>
+</toolkit:Popup>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="Ks.Maui.UI.Views.NewsCollectionView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ctrl="clr-namespace:Ks.Maui.UI.Views"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    x:Name="this">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" x:Name="Converter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <Grid
+        BackgroundColor="White"
+        BindingContext="{x:Reference this}"
+        RowDefinitions="1,*">
+        <BoxView
+            Grid.Row="1"
+            x:Name="TopBorder"
+            HeightRequest="1"
+            IsVisible="false"
+            Color="SkyBlue" />
+            <ctrl:KsCollectionView
+            Grid.Row="2"
+            HorizontalOptions="FillAndExpand"
+            ItemsSource="{Binding Items}"
+            VerticalScrollBarVisibility="Always">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <ctrl:BorderView
+                        ControlTemplate="{StaticResource ContentBoxTemplate}"
+                        HorizontalOptions="FillAndExpand"
+                        IsArrowVisible="True"
+                        TapCommand="{Binding TapContentBoxCommand, Source={x:Reference this}}"
+                        TapCommandParameter="{Binding}"
+                        VisibleBorders="Bottom">
+                        <Grid ColumnDefinitions="25,Auto">
+                            <Ellipse
+                                WidthRequest="15" HeightRequest="15"
+                                HorizontalOptions="Start"
+                                    IsVisible="{Binding IsReaded, Mode=TwoWay, Converter={StaticResource InvertedBoolConverter}}"
+                                    x:Name="EllipseShape"
+                                    Fill="Red" />
+                            <Label Grid.Column="1" Text="{Binding Title}" />
+                        </Grid>
+                    </ctrl:BorderView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.EmptyView>
+                <Label
+                    HorizontalOptions="FillAndExpand"
+                    HorizontalTextAlignment="Center"
+                    LineBreakMode="WordWrap"
+                    Text="{Binding EmptyViewText}"
+                    VerticalOptions="FillAndExpand" />
+            </CollectionView.EmptyView>
+        </ctrl:KsCollectionView>
+    </Grid>
+</ContentView>
