@@ -8,7 +8,7 @@
 
     <Grid
         Margin="10"
-        Padding="30,0"
+        Padding="30,30"
         BackgroundColor="Green"
         RowDefinitions="Auto,*">
         <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
@@ -52,10 +52,7 @@
                 Text="Hello, World!"
                 VerticalOptions="Start" />
         </Grid>
-        <nuget:NewsCollectionView
-            Grid.Row="1"
-            EmptyViewText="{Binding EmptyViewText, Source={x:Reference this}}"
-            Items="{Binding Items, Source={x:Reference this}}" />
+        <nuget:NewsCollectionView Grid.Row="1" Items="{Binding Items, Source={x:Reference this}}" />
     </Grid>
 
 </ContentPage>

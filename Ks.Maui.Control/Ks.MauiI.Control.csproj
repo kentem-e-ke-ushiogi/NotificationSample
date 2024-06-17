@@ -21,9 +21,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Views\BorderView\BorderView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="Views\NewsCollectionView\NewsCollectionView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -36,9 +33,6 @@
 	<ItemGroup>
 	  <Compile Update="Dialog\NotificationDialog.xaml.cs">
 	    <DependentUpon>NotificationDialog.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\BorderView\BorderView.xaml.cs">
-	    <DependentUpon>BorderView.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 

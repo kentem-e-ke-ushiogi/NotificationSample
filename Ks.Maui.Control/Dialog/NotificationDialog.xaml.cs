@@ -1,13 +1,13 @@
-using CommunityToolkit.Maui.Views;
+ï»¿using CommunityToolkit.Maui.Views;
 using NetStandardCommon;
 
 namespace Ks.MauiI.Control;
 
 public partial class NotificationDialog : Popup
 {
-    /// <summary>ƒ_ƒCƒAƒƒO‚ğ•Â‚¶‚½Œã‚Ìˆ— </summary>
-    public  Action<bool>? CloseAction = null;
-    /// <summary> ‚¨’m‚ç‚¹ƒAƒCƒeƒ€ </summary>
+    /// <summary>ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã‚’é–‰ã˜ãŸå¾Œã®å‡¦ç† </summary>
+    private static Action? CloseAction = null;
+    /// <summary> ãŠçŸ¥ã‚‰ã›ã‚¢ã‚¤ãƒ†ãƒ  </summary>
     public NotificationItemModel[] Items { get; }
 
     public NotificationDialog(NotificationItemModel[] items)
@@ -19,12 +19,13 @@ public partial class NotificationDialog : Popup
     private void BtnOK_Clicked(object sender, EventArgs e)
     {
         Close();
-        CloseAction?.Invoke(NotAlertAgainCheckBox.IsChecked);
+        CloseAction?.Invoke();
     }
 
-    /// <summary> ‚¨’m‚ç‚¹ƒ_ƒCƒAƒƒO•\¦ </summary>
-    public static async Task<object> Show()
+    /// <summary> ãŠçŸ¥ã‚‰ã›ãƒ€ã‚¤ã‚¢ãƒ­ã‚°è¡¨ç¤º </summary>
+    public static async Task<object> Show(Action? closeAction = null)
     {
+        CloseAction = closeAction;
         var currentPage = GetCurrentPage();
         try
         {
@@ -35,7 +36,7 @@ public partial class NotificationDialog : Popup
         }
         catch(Exception ex)
         {
-            await currentPage.DisplayAlert("ƒGƒ‰[", ex.Message + "\r\n" + ex.StackTrace, "OK");
+            await currentPage.DisplayAlert("ã‚¨ãƒ©ãƒ¼", ex.Message + "\r\n" + ex.StackTrace, "OK");
             return Task.CompletedTask;
         }
     }

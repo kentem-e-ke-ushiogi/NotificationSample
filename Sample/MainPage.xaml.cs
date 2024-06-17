@@ -5,7 +5,6 @@ namespace NugetTestApp2
     public partial class MainPage : ContentPage
     {
         public NotificationItemModel[] Items { get; set; }
-        public string EmptyViewText = "お知らせはありません。";
         public MainPage()
         {
             // 既読を保存する場所をアプリケーションフォルダーに設定
@@ -37,8 +36,6 @@ namespace NugetTestApp2
         {
             EllipseShape.IsVisible = !EllipseShape.IsVisible;
             await Ks.MauiI.Control.NotificationDialog.Show();
-            //var dialog = new NewsDialog(Items, null);
-            //this.ShowPopupAsync(dialog);
         }
     }
 }

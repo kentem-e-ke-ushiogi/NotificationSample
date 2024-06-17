@@ -128,6 +128,7 @@ namespace NetStandardCommon
                     IsImportant = true,
                 };
                 list.Add(item3);
+                //return new DummyNotificationDTO[0];
                 return list.ToArray();
             });
             return task;

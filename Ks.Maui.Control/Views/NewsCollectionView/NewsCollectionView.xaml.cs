@@ -1,16 +1,10 @@
-using CommunityToolkit.Mvvm.Input;
-using Ks.MauiI.Control;
-using NetStandardCommon;
+ï»¿using NetStandardCommon;
 
 namespace Ks.Maui.UI.Views;
 
-/// <summary>‚¨’m‚ç‚¹ˆê——•\¦—p‚ÌƒRƒ“ƒgƒ[ƒ‹</summary>
+/// <summary>ãŠçŸ¥ã‚‰ã›ä¸€è¦§è¡¨ç¤ºç”¨ã®ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«</summary>
 public partial class NewsCollectionView : ContentView
 {
-    /// <summary>
-    /// ƒ^ƒbƒv‚ÅSource‚ªŠJ‚©‚ê‚½Œã‚É”­¶‚µ‚Ü‚·B
-    /// </summary>
-    public event EventHandler? ItemSourceOpened;
     public NewsCollectionView()
     {
         InitializeComponent();
@@ -19,16 +13,12 @@ public partial class NewsCollectionView : ContentView
     public static readonly BindableProperty ItemsProperty = BindableProperty.Create(
         nameof(Items),
         typeof(IEnumerable<NotificationItemModel>),
-        typeof(NewsCollectionView),
-        propertyChanged: ItemsChanged);
-
-    public static readonly BindableProperty EmptyViewTextProperty = BindableProperty.Create(
-        nameof(EmptyViewText),
-        typeof(string),
         typeof(NewsCollectionView));
 
+    public string EmptyViewText => "ãŠçŸ¥ã‚‰ã›ã¯ã‚ã‚Šã¾ã›ã‚“ã€‚";
+
     /// <summary>
-    /// •\¦‚·‚éƒAƒCƒeƒ€‚ÌƒRƒŒƒNƒVƒ‡ƒ“
+    /// è¡¨ç¤ºã™ã‚‹ã‚¢ã‚¤ãƒ†ãƒ ã®ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³
     /// </summary>
     public IEnumerable<NotificationItemModel> Items
     {
@@ -36,38 +26,10 @@ public partial class NewsCollectionView : ContentView
         set => SetValue(ItemsProperty, value);
     }
 
-    /// <summary>
-    /// Items‚ª‚È‚¢‚Æ‚«‚É•\¦‚·‚éƒeƒLƒXƒg
-    /// </summary>
-    public string EmptyViewText
+    private void this_ItemSourceOpened(object sender, EventArgs e)
     {
-        get => (string)GetValue(EmptyViewTextProperty);
-        set => SetValue(EmptyViewTextProperty, value);
-    }
-
-    public IRelayCommand TapContentBoxCommand => new RelayCommand<object>(async (obj) =>
-    {
-        if (obj is not NotificationItemModel item) return;
-
-        var res = await Browser.Default.OpenAsync(item.URL, BrowserLaunchMode.SystemPreferred);
-        if (res)
-        {
-            // ToDo:Šù“Ç‚ÌØ‘Ö‚ğs‚¤
-            item.IsReaded = true;
-            NotificationUtils.SetReaded(item.Id);
-            ItemSourceOpened?.Invoke(item, new EventArgs());
-        }
-    });
-
-    private static void ItemsChanged(BindableObject bindable, object oldValue, object newValue)
-    {
-        if (bindable is not NewsCollectionView selfView || newValue is not IEnumerable<NotificationItemModel> items) return;
-
-        selfView.TopBorder.IsVisible = items.Any();
-    }
-
-    private async void Button_Clicked(object sender, EventArgs e)
-    {
-        await NotificationDialog.Show();
+        NotificationItemModel item = (NotificationItemModel)sender;
+        item.IsReaded = true;
+        NotificationUtils.SetReaded(item.Id);
     }
 }
