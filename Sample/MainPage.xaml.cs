@@ -12,13 +12,7 @@ namespace NugetTestApp2
             NotificationUtils.SetJsonFolderPath(folder);
             InitializeComponent();
         }
-        protected override async void OnAppearing()
-        {
-            base.OnAppearing();
-            var list = await NotificationUtils.GetAllNotifications();
-            Items = list.ToArray();
-            OnPropertyChanged(nameof(Items));
-        }
+
         private static string GetJsonFolderPath()
         {
             string folderpath = "";

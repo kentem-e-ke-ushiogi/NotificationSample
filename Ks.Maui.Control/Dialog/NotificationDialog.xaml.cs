@@ -7,12 +7,9 @@ public partial class NotificationDialog : Popup
 {
     /// <summary>ダイアログを閉じた後の処理 </summary>
     private static Action? CloseAction = null;
-    /// <summary> お知らせアイテム </summary>
-    public NotificationItemModel[] Items { get; }
 
-    public NotificationDialog(NotificationItemModel[] items)
+    public NotificationDialog()
     {
-        Items = items;
         InitializeComponent();
     }
 
@@ -29,9 +26,7 @@ public partial class NotificationDialog : Popup
         var currentPage = GetCurrentPage();
         try
         {
-            var items = await NotificationUtils.GetImportantNotifications();
-
-            NotificationDialog dialog = new(items);
+            NotificationDialog dialog = new();
             return currentPage.ShowPopupAsync(dialog);
         }
         catch(Exception ex)

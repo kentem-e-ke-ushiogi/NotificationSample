@@ -17,8 +17,9 @@
         </ResourceDictionary>
     </toolkit:Popup.Resources>
     <Grid
+        Margin="10"
+        Padding="10"
         BackgroundColor="#E5E5E5"
-        ColumnDefinitions="350"
         RowDefinitions="Auto,Auto,1,Auto">
         <Label
             Margin="0"
@@ -33,13 +34,12 @@
         <Grid
             Grid.Row="1"
             ColumnDefinitions="Auto,*"
-            ColumnSpacing="10"
             RowDefinitions="Auto,Auto"
             RowSpacing="20">
             <ctrl:NewsCollectionView
                 Grid.Row="0"
                 Grid.ColumnSpan="2"
-                Items="{Binding Items, Source={x:Reference this}}"
+                Important="True"
                 MaximumHeightRequest="200" />
             <CheckBox
                 x:Name="NotAlertAgainCheckBox"

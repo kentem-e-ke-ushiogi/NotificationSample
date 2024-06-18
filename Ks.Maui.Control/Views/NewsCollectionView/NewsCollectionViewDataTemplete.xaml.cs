@@ -1,6 +1,4 @@
-﻿using NetStandardCommon;
-
-namespace Ks.Maui.UI.Views;
+﻿namespace Ks.Maui.UI.Views;
 
 public partial class NewsCollectionViewDataTemplete : ContentView
 {
@@ -65,10 +63,7 @@ public partial class NewsCollectionViewDataTemplete : ContentView
         if (res)
         {
             IsReaded = true;
-            NotificationItemModel item = (NotificationItemModel)this.BindingContext;
-            item.IsReaded = true;
-            NotificationUtils.SetReaded(item.Id);
-            ItemSourceOpened?.Invoke(item, new EventArgs());
+            ItemSourceOpened?.Invoke(this.BindingContext, new EventArgs());
         }
     }
 }

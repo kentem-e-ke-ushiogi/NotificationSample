@@ -52,7 +52,7 @@
                 Text="Hello, World!"
                 VerticalOptions="Start" />
         </Grid>
-        <nuget:NewsCollectionView Grid.Row="1" Items="{Binding Items, Source={x:Reference this}}" />
+        <nuget:NewsCollectionView Grid.Row="1" />
     </Grid>
 
 </ContentPage>

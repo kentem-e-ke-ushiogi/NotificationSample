@@ -4,14 +4,8 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:ctrl="clr-namespace:Ks.Maui.UI.Views"
-    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     x:Name="this"
     BindingContext="{x:Reference this}">
-    <!--<ContentView.Resources>
-        <ResourceDictionary>
-            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" x:Name="Converter" />
-        </ResourceDictionary>
-    </ContentView.Resources>-->
     <Grid BackgroundColor="White">
         <Border Stroke="SkyBlue">
             <ctrl:KsCollectionView
@@ -25,31 +19,6 @@
                             IsReaded="{Binding IsReaded}"
                             ItemSourceOpened="this_ItemSourceOpened"
                             Link="{Binding URL}" />
-                        <!--<Grid ColumnDefinitions="25,*" RowDefinitions="55,Auto">
-                            <Ellipse
-                                x:Name="EllipseShape"
-                                Grid.Row="0"
-                                Margin="0"
-                                Fill="Red"
-                                HeightRequest="15"
-                                HorizontalOptions="Start"
-                                IsVisible="{Binding IsReaded, Mode=TwoWay, Converter={StaticResource InvertedBoolConverter}}"
-                                WidthRequest="15" />
-                            <Label
-                                Grid.Row="0"
-                                Grid.Column="1"
-                                HorizontalOptions="Fill"
-                                Text="{Binding Title}" />
-                            <BoxView
-                                Grid.Row="1"
-                                Grid.ColumnSpan="2"
-                                HeightRequest="1"
-                                HorizontalOptions="Fill"
-                                Color="SkyBlue" />
-                            <Grid.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
-                            </Grid.GestureRecognizers>
-                        </Grid>-->
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
                 <CollectionView.EmptyView>
@@ -57,7 +26,7 @@
                         HorizontalOptions="FillAndExpand"
                         HorizontalTextAlignment="Center"
                         LineBreakMode="WordWrap"
-                        Text="{Binding EmptyViewText, Mode=OneTime, Source={x:Reference this}}"
+                        Text="{Binding EmptyViewText, Mode=TwoWay, Source={x:Reference this}}"
                         VerticalOptions="CenterAndExpand" />
                 </CollectionView.EmptyView>
             </ctrl:KsCollectionView>
