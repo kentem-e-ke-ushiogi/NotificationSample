@@ -8,7 +8,7 @@
 
     <Grid
         Margin="10"
-        Padding="30,30"
+        Padding="20,20"
         BackgroundColor="Green"
         RowDefinitions="Auto,*">
         <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">

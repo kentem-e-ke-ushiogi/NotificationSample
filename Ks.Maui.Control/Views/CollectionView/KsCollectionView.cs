@@ -110,7 +110,7 @@ public class KsCollectionView : CollectionView
     {
         foreach (View item in TempViews)
         {
-            item.WidthRequest = Width;
+            //item.WidthRequest = Width;
         }
     }
 }

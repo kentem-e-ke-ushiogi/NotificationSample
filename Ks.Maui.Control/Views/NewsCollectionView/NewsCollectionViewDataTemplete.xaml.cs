@@ -1,8 +1,11 @@
-﻿namespace Ks.Maui.UI.Views;
+﻿using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace Ks.Maui.UI.Views;
 
 public partial class NewsCollectionViewDataTemplete : ContentView
 {
-    /// タップでSourceが開かれた後に発生します。
+    /// <summary>
+    /// タップ後の処理
     /// </summary>
     public event EventHandler? ItemSourceOpened;
 
@@ -16,11 +19,15 @@ public partial class NewsCollectionViewDataTemplete : ContentView
     {
         if (e.PropertyName == IsReadedProperty.PropertyName)
         {
-            EllipseShape.IsVisible = !IsReaded;
+            BrdRead.IsVisible = !IsReaded;
         }
         else if (e.PropertyName == TitleProperty.PropertyName)
         {
             LblTitle.Text = Title;
+        }
+        else if (e.PropertyName == DateProperty.PropertyName)
+        {
+            LblDate.Text = Date.ToString("yyyy.MM.dd");
         }
     }
 
@@ -55,6 +62,17 @@ public partial class NewsCollectionViewDataTemplete : ContentView
     {
         get => (string)GetValue(LinkProperty);
         set => SetValue(LinkProperty, value);
+    }
+
+    public static readonly BindableProperty DateProperty = BindableProperty.Create(
+        nameof(Date),
+        typeof(DateTime),
+        typeof(NewsCollectionViewDataTemplete));
+
+    public DateTime Date
+    {
+        get => (DateTime)GetValue(DateProperty);
+        set => SetValue(DateProperty, value);
     }
 
     private async void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)

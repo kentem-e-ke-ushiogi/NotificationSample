@@ -1,4 +1,6 @@
-﻿namespace NetStandardCommon
+﻿using System;
+
+namespace NetStandardCommon
 {
     /// <summary> お知らせ機能モデル </summary>
     public class NotificationItemModel
@@ -13,5 +15,7 @@
         public bool IsReaded { get; set; }
         /// <summary> 重要なお知らせ </summary>
         public bool IsImportant { get; set; }
+        /// <summary>公開日</summary>
+        public DateTime Date { get; set; }
     }
 }

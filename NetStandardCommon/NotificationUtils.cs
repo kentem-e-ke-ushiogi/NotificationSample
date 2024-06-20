@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NetStandardCommon
 {
-    public static class NotificationUtils
+    public class NotificationUtils
     {
         private const string JsonFileName = "NotificationReadedList.json";
         private static string JsonFolderPath = "";
@@ -51,6 +51,7 @@ namespace NetStandardCommon
                     URL = item.URL,
                     IsImportant = item.IsImportant,
                     IsReaded = readedList.Contains(item.Id),
+                    Date = item.Timestamp,
                 };
                 list.Add(model);
             }
@@ -101,14 +102,36 @@ namespace NetStandardCommon
             var task = await Task.Run(() =>
             {
                 List<DummyNotificationDTO> list = new List<DummyNotificationDTO>();
-                for (int i = 1; i <= 8; i++)
+
+                var item0 = new DummyNotificationDTO()
+                {
+                    Id = 1,
+                    Title = "サーバーメンテナンス（12/17）のお知らせ",
+                    URL = "https://www.kentem.jp/support/20230711_01/",
+                    IsImportant = true,
+                    Timestamp = new DateTime(2013, 12, 8),
+                };
+                list.Add(item0);
+
+                var item1 = new DummyNotificationDTO()
+                {
+                    Id = 2,
+                    Title = "【重要】SiteBox大幅バージョンアップにおける注意事項について",
+                    URL = "https://www.kentem.jp/support/20230711_01/",
+                    IsImportant = true,
+                    Timestamp = new DateTime(2023, 8, 22),
+                };
+                list.Add(item1);
+
+                for (int i = 3; i <= 8; i++)
                 {
                     var item = new DummyNotificationDTO()
                     {
                         Id = i,
-                        Title = "お知らせ" + i,
+                        Title = "12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890" + i,
                         URL = "https://www.kentem.jp/support/20230711_01/",
                         IsImportant = false,
+                        Timestamp = DateTime.Now,
                     };
                     list.Add(item);
                 }
@@ -118,6 +141,7 @@ namespace NetStandardCommon
                     Title = "【重要】お知らせ9",
                     URL = "https://www.kentem.jp/support/20230711_01/",
                     IsImportant = true,
+                    Timestamp = DateTime.Now,
                 };
                 list.Add(item2);
                 var item3 = new DummyNotificationDTO()
@@ -126,6 +150,7 @@ namespace NetStandardCommon
                     Title = "【重要】お知らせ10",
                     URL = "https://www.kentem.jp/support/20230711_01/",
                     IsImportant = true,
+                    Timestamp = DateTime.Now,
                 };
                 list.Add(item3);
                 //return new DummyNotificationDTO[0];
@@ -148,7 +173,7 @@ namespace NetStandardCommon
             /// <summary>重要なお知らせ</summary>
             public bool IsImportant { get; set; }
             /// <summary>タイムスタンプ</summary>
-            public long Timestamp { get; set; }
+            public DateTime Timestamp { get; set; }
         }
 
     }

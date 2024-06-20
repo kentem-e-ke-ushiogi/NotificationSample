@@ -4,18 +4,21 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:ctrl="clr-namespace:Ks.Maui.UI.Views"
+    xmlns:standard="clr-namespace:NetStandardCommon;assembly=NetStandardCommon"
     x:Name="this"
     BindingContext="{x:Reference this}">
     <Grid BackgroundColor="White">
         <Border Stroke="SkyBlue">
             <ctrl:KsCollectionView
                 HorizontalOptions="FillAndExpand"
-                ItemsSource="{Binding Items}"
+                ItemsSource="{Binding Items, Mode=TwoWay, Source={x:Reference this}}"
                 VerticalScrollBarVisibility="Always">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <ctrl:NewsCollectionViewDataTemplete
                             Title="{Binding Title}"
+                            x:DataType="standard:NotificationItemModel"
+                            Date="{Binding Date}"
                             IsReaded="{Binding IsReaded}"
                             ItemSourceOpened="this_ItemSourceOpened"
                             Link="{Binding URL}" />
