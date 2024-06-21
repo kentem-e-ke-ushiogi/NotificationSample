@@ -7,32 +7,30 @@
     xmlns:standard="clr-namespace:NetStandardCommon;assembly=NetStandardCommon"
     x:Name="this"
     BindingContext="{x:Reference this}">
-    <Grid BackgroundColor="White">
-        <Border Stroke="SkyBlue">
-            <ctrl:KsCollectionView
-                HorizontalOptions="FillAndExpand"
-                ItemsSource="{Binding Items, Mode=TwoWay, Source={x:Reference this}}"
-                VerticalScrollBarVisibility="Always">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <ctrl:NewsCollectionViewDataTemplete
-                            Title="{Binding Title}"
-                            x:DataType="standard:NotificationItemModel"
-                            Date="{Binding Date}"
-                            IsReaded="{Binding IsReaded}"
-                            ItemSourceOpened="this_ItemSourceOpened"
-                            Link="{Binding URL}" />
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-                <CollectionView.EmptyView>
-                    <Label
-                        HorizontalOptions="FillAndExpand"
-                        HorizontalTextAlignment="Center"
-                        LineBreakMode="WordWrap"
-                        Text="{Binding EmptyViewText, Mode=TwoWay, Source={x:Reference this}}"
-                        VerticalOptions="CenterAndExpand" />
-                </CollectionView.EmptyView>
-            </ctrl:KsCollectionView>
-        </Border>
-    </Grid>
+    <Border Background="White" Stroke="#7FDCF4">
+        <ctrl:KsCollectionView
+            HorizontalOptions="FillAndExpand"
+            ItemsSource="{Binding Items, Mode=TwoWay, Source={x:Reference this}}"
+            VerticalScrollBarVisibility="Always">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <ctrl:NewsCollectionViewDataTemplete
+                        Title="{Binding Title}"
+                        x:DataType="standard:NotificationItemModel"
+                        Date="{Binding Date}"
+                        IsReaded="{Binding IsReaded}"
+                        ItemSourceOpened="this_ItemSourceOpened"
+                        Link="{Binding URL}" />
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.EmptyView>
+                <Label
+                    HorizontalOptions="FillAndExpand"
+                    HorizontalTextAlignment="Center"
+                    LineBreakMode="WordWrap"
+                    Text="{Binding EmptyViewText, Source={x:Reference this}}"
+                    VerticalOptions="CenterAndExpand" />
+            </CollectionView.EmptyView>
+        </ctrl:KsCollectionView>
+    </Border>
 </ContentView>

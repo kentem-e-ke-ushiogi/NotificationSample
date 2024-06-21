@@ -1,4 +1,6 @@
 ﻿using NetStandardCommon;
+using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace Ks.Maui.UI.Views;
 
@@ -22,9 +24,15 @@ public partial class NewsCollectionView : ContentView
             try
             {
                 if (Important)
-                    Items = await NotificationUtils.GetImportantNotifications();
+                {
+                    var items = await NotificationUtils.GetImportantNotifications();
+                    Items = new ObservableCollection<NotificationItemModel>(items);
+                }
                 else
-                    Items = await NotificationUtils.GetAllNotifications();
+                {
+                    var items = await NotificationUtils.GetAllNotifications();
+                    Items = new ObservableCollection<NotificationItemModel>(items);
+                }
                 OnPropertyChanged(nameof(Items));
                 UpdateEmptyView(null);
             }
@@ -43,10 +51,6 @@ public partial class NewsCollectionView : ContentView
         OnPropertyChanged(nameof(EmptyViewText));
     }
 
-    public static readonly BindableProperty ItemsProperty = BindableProperty.Create(
-        nameof(Items),
-        typeof(IEnumerable<NotificationItemModel>),
-        typeof(NewsCollectionView));
 
     public static readonly BindableProperty EmptyViewTextProperty = BindableProperty.Create(
         nameof(EmptyViewText),
@@ -56,11 +60,7 @@ public partial class NewsCollectionView : ContentView
     /// <summary>
     /// 表示するアイテムのコレクション
     /// </summary>
-    public IEnumerable<NotificationItemModel> Items
-    {
-        get => (IEnumerable<NotificationItemModel>)GetValue(ItemsProperty);
-        set => SetValue(ItemsProperty, value);
-    }
+    public ObservableCollection<NotificationItemModel> Items { get; set; }
 
     public string EmptyViewText
     {
@@ -75,6 +75,23 @@ public partial class NewsCollectionView : ContentView
     {
         NotificationItemModel item = (NotificationItemModel)sender;
         item.IsReaded = true;
-        NotificationUtils.SetReaded(item.Id);
+        NotificationUtils.SetReaded(new int[] { item.Id });
     }
+
+    public ICommand AllReadedCommand => new Command( () =>
+    {
+        List<int> ids = new List<int>();
+        var targets = Items.ToArray();
+        for (int i = 0; i < targets.Length; i ++)
+        {
+            var item = targets[i];
+            if (!item.IsReaded)
+            {
+                item.IsReaded = true;
+                ids.Add(item.Id);
+                Items[i] = item;
+            }
+        }
+        NotificationUtils.SetReaded(ids.ToArray());
+    });
 }

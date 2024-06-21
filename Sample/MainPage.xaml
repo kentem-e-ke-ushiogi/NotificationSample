@@ -10,8 +10,9 @@
         Margin="10"
         Padding="20,20"
         BackgroundColor="Green"
-        RowDefinitions="Auto,*">
-        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+        RowDefinitions="Auto,Auto,*">
+        <Button  Grid.Row="0" Command="{Binding AllReadedCommand, Source={x:Reference NoticeView}}" Text="全て既読" />
+        <Grid Grid.Row="1" ColumnDefinitions="Auto,*" ColumnSpacing="10">
             <AbsoluteLayout Margin="10">
                 <Button
                     Padding="0"
@@ -52,7 +53,7 @@
                 Text="Hello, World!"
                 VerticalOptions="Start" />
         </Grid>
-        <nuget:NewsCollectionView Grid.Row="1" />
+        <nuget:NewsCollectionView x:Name="NoticeView" Grid.Row="2" />
     </Grid>
 
 </ContentPage>

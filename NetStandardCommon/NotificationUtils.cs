@@ -61,18 +61,27 @@ namespace NetStandardCommon
         }
 
         /// <summary> 既読を付ける</summary>
-        public static void SetReaded(int id)
+        public static bool SetReaded(int[] ids)
         {
             if (string.IsNullOrEmpty(JsonFolderPath))
-                throw new InvalidOperationException("Use SetJsonFolderPath");
-
+                throw new InvalidOperationException("Call Initialize Method");
+            bool add = false;
             List<int> list = GetReadedList();
-            if (list.Contains(id))
-                return;
-            list.Add(id);
-            string json = JsonConvert.SerializeObject(list);
+            foreach (int id in ids)
+            {
+                if (!list.Contains(id))
+                {
+                    list.Add(id);
+                    add = true;
+                }
+            }
+            if (!add)
+                return false;
+
             string filePath = Path.Combine(JsonFolderPath, JsonFileName);
+            string json = JsonConvert.SerializeObject(list);
             File.WriteAllText(filePath, json);
+            return true;
         }
 
         /// <summary> 未読のお知らせがあるか </summary>
@@ -101,7 +110,8 @@ namespace NetStandardCommon
         {
             var task = await Task.Run(() =>
             {
-                List<DummyNotificationDTO> list = new List<DummyNotificationDTO>();
+                //return new DummyNotificationDTO[0];
+                List <DummyNotificationDTO> list = new List<DummyNotificationDTO>();
 
                 var item0 = new DummyNotificationDTO()
                 {
